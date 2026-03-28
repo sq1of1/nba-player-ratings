@@ -18,7 +18,7 @@ from supabase import create_client, Client
 
 # Import your existing modules
 from nba_data_pipeline import NBADataPipeline
-from advanced_model import AdvancedModel
+from advanced_model import AdvancedPlayerModel
 
 # Setup logging
 logging.basicConfig(
@@ -71,8 +71,9 @@ def calculate_war(df):
     """Calculate WAR ratings"""
     try:
         logger.info("Calculating WAR...")
-        model = AdvancedModel()
-        ratings_df = model.generate_ratings(df)
+        model = AdvancedPlayerModel()
+model.fit(df)
+        ratings_df = model.rate_players(df)
         logger.info(f"WAR calculated for {len(ratings_df)} players")
         return ratings_df
     except Exception as e:
