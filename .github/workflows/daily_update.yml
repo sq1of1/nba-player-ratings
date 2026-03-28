@@ -4,8 +4,6 @@ on:
   schedule:
     # Runs at 8:00 AM UTC = 3:00 AM ET
     - cron: '0 8 * * *'
-  
-  # Allow manual trigger
   workflow_dispatch:
 
 jobs:
@@ -28,19 +26,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
-    - name: Run WAR update
+      - name: Debug - List files
+        run: |
+          echo "Current directory:"
+          ls -la
+          echo "Scripts directory:"
+          ls -la scripts/
+      
+      - name: Run WAR update
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
-          ls -la
-          ls -la scripts/
           python scripts/update_database.py
-      
-      - name: Upload logs if failed
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: error-logs
-          path: logs/
-          retention-days: 7
