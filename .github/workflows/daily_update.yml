@@ -28,11 +28,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
-      - name: Run WAR update
+    - name: Run WAR update
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: |
+          ls -la
+          ls -la scripts/
           python scripts/update_database.py
       
       - name: Upload logs if failed
