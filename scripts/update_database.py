@@ -72,7 +72,7 @@ def calculate_war(df):
     try:
         logger.info("Calculating WAR...")
         model = AdvancedPlayerModel()
-model.fit(df)
+        model.fit(df)
         ratings_df = model.rate_players(df)
         logger.info(f"WAR calculated for {len(ratings_df)} players")
         return ratings_df
