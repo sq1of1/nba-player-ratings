@@ -48,7 +48,7 @@ def fetch_nba_data(max_retries=3):
             logger.info(f"Fetching NBA data (attempt {attempt}/{max_retries})...")
             time.sleep(2)
             
-            df = pipeline.fetch_all_data()
+            df = pipeline.create_master_dataset()
             
             if df is None or len(df) == 0:
                 raise ValueError("No data returned")
